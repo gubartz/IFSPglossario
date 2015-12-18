@@ -27,7 +27,6 @@ class UsuarioTable extends Table
         $this->table('usuario');
         $this->displayField('email');
         $this->primaryKey('id_usuario');
-
     }
 
     /**

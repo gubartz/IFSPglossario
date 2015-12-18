@@ -106,16 +106,16 @@ class UsuarioController extends AppController
 
     public function login()
     {
+
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
                 $role = '';
 
                 $alunoQuery = TableRegistry::get('Aluno');                  
-                $alunoArray = $alunoQuery
-                    ->find()
-                    ->where(['id_usuario =' => $user['id_usuario']])
-                    ->toArray();
+
+                $alunoArray = 
+                    $alunoQuery->find()->contain(['Turma'])->where(['id_usuario' => $user['id_usuario']])->toArray();
 
                 if(empty($alunoArray)){
                     $professorQuery = TableRegistry::get('Professor');                  
@@ -130,6 +130,7 @@ class UsuarioController extends AppController
                 }else{
                     $role             = 'aluno';
                     $user['id_aluno'] = $alunoArray[0]['id_aluno'];
+                    $user['turmas']   = 0;
                 }
 
                 if(empty($professorArray)){

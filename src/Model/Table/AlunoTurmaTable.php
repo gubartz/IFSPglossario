@@ -28,6 +28,8 @@ class AlunoTurmaTable extends Table
         $this->displayField('id_aluno');
         $this->primaryKey(['id_aluno', 'id_turma']);
 
+
+
     }
 
     /**

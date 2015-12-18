@@ -29,10 +29,12 @@ class TurmaTable extends Table
         $this->primaryKey('id_turma');
 
         $this->belongsToMany('Aluno', [
-            'foreignKey' => 'id_turma',
-            'targetForeignKey' => 'id_aluno',
-            'joinTable' => 'aluno_turma'
+            'className' => 'Aluno',
+            'targetForeignKey' => 'id_turma',
+            'joinTable' => 'aluno_turma',
+            'foreignKey' => 'id_turma'
         ]);
+
     }
 
     /**

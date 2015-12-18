@@ -29,9 +29,10 @@ class AlunoTable extends Table
         $this->primaryKey('id_aluno');
 
         $this->belongsToMany('Turma', [
-            'foreignKey' => 'id_aluno',
-            'targetForeignKey' => 'id_turma',
-            'joinTable' => 'aluno_turma'
+            'className' => 'Turma',
+            'targetForeignKey' => 'id_aluno',
+            'joinTable' => 'aluno_turma',
+            'foreignKey' => 'id_aluno'
         ]);
 
         $this->hasMany('Palavra');        

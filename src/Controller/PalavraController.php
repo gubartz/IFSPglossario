@@ -113,14 +113,28 @@ class PalavraController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function teste(){
+        $alunoQuery = TableRegistry::get('Aluno');
+
+        $x = $alunoQuery->find()->contain(['Turma'])->where(['id_usuario' => '3']);
+
+        foreach($x as $y){
+            print_r($y);
+        }
+
+        exit;
+        
+
+    }
+
     function beforeFilter(\Cake\Event\Event $event)
     {
-        $this->Auth->allow(['index', 'add']);
-    }    
+        $this->Auth->allow('teste');
+    }
+
 
     public function isAuthorized($user = null)
     {
         return true;
-    }
-
+    }      
 }
