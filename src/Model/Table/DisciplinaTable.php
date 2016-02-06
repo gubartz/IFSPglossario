@@ -25,7 +25,7 @@ class DisciplinaTable extends Table
         parent::initialize($config);
 
         $this->table('disciplina');
-        $this->displayField('id_disciplina');
+        $this->displayField('sigla');
         $this->primaryKey('id_disciplina');
 
     }

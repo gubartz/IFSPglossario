@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Turma Controller
@@ -55,6 +56,16 @@ class TurmaController extends AppController
             }
         }
         $aluno = $this->Turma->Aluno->find('list', ['limit' => 200]);
+
+        $disciplinas  = TableRegistry::get('Disciplina')->find('list', ['keyField' => 'id_disciplina', 'valueField' => 'sigla']);
+        $this->set('disciplinas', $disciplinas);
+
+        $professores  = TableRegistry::get('Professor')->find('list', ['keyField' => 'id_professor', 'valueField' => 'nome']);
+        $this->set('professores', $professores);        
+
+        $alunos  = TableRegistry::get('Aluno')->find('list', ['keyField' => 'id_aluno', 'valueField' => 'nome']);
+        $this->set('alunos', $alunos);                
+
         $this->set(compact('turma', 'aluno'));
         $this->set('_serialize', ['turma']);
     }

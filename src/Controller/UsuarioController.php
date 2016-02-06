@@ -149,6 +149,7 @@ class UsuarioController extends AppController
     public function beforeFilter(\Cake\Event\Event $event)
     {
         parent::beforeFilter($event);
+        //$this->Auth->allow(['index', 'add', 'edit', 'login', 'logout']);
         $this->Auth->allow(['login', 'logout']);
     }
 

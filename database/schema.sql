@@ -6,6 +6,9 @@ CREATE TABLE usuario (
     data_modificado datetime
 );
 
+INSERT INTO usuario(email, senha) VALUES ('gubartz@ifsp.edu.br', '');
+INSERT INTO usuario(email, senha) VALUES ('stefanie@ifsp.edu.br', '');
+
 CREATE TABLE curso(
 	id_curso int AUTO_INCREMENT PRIMARY KEY,
 	descricao varchar(1000) NOT NULL
@@ -35,7 +38,8 @@ CREATE table professor(
 	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
-INSERT INTO professor(nome, prontuario) VALUES ('Stefanie', '1234');
+INSERT INTO professor(nome, prontuario, id_usuario) VALUES ('Gustavo', '123900', 1);
+INSERT INTO professor(nome, prontuario, id_usuario) VALUES ('Stefanie', '1234', 2);
 
 CREATE TABLE turma(
 	id_turma int AUTO_INCREMENT PRIMARY KEY,

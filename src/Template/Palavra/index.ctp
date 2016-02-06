@@ -8,10 +8,9 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id_palavra') ?></th>
             <th><?= $this->Paginator->sort('texto') ?></th>
-            <th><?= $this->Paginator->sort('id_idioma') ?></th>
-            <th><?= $this->Paginator->sort('id_aluno') ?></th>
+            <th><?= $this->Paginator->sort('idioma') ?></th>
+            <th><?= $this->Paginator->sort('Aluno') ?></th>
             <th><?= $this->Paginator->sort('id_turma') ?></th>
             <th><?= $this->Paginator->sort('data_cadastro') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
@@ -20,7 +19,6 @@
     <tbody>
     <?php foreach ($palavra as $palavra): ?>
         <tr>
-            <td><?= $this->Number->format($palavra->id_palavra) ?></td>
             <td><?= h($palavra->texto) ?></td>
             <td><?= $palavra->idioma->descricao ?></td>
             <td><?= $palavra->aluno->nome ?></td>

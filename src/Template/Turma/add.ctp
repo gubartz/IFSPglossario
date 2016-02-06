@@ -11,11 +11,11 @@
     <fieldset>
         <legend><?= __('Add Turma') ?></legend>
         <?php
-            echo $this->Form->input('id_disciplina');
-            echo $this->Form->input('id_professor');
+            echo $this->Form->input('id_disciplina', ['options' => $disciplinas]);
+            echo $this->Form->input('id_professor', ['options' => $professores]);
             echo $this->Form->input('semestre');
             echo $this->Form->input('ano');
-            echo $this->Form->input('aluno._ids', ['options' => $aluno]);
+            echo $this->Form->input('aluno._ids', ['options' => $alunos]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
