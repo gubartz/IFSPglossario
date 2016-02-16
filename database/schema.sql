@@ -45,8 +45,8 @@ CREATE TABLE turma(
 	id_turma int AUTO_INCREMENT PRIMARY KEY,
 	id_disciplina int NOT NULL,
 	id_professor int NOT NULL,
-	semestre char(6),
-	ano char(4),
+	semestre int,
+	ano int,
 	FOREIGN KEY (id_disciplina) REFERENCES disciplina(id_disciplina),
 	FOREIGN KEY (id_professor) REFERENCES professor(id_professor)
 );

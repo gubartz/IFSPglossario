@@ -13,7 +13,7 @@
         <?php
             echo $this->Form->input('id_disciplina', ['options' => $disciplinas]);
             echo $this->Form->input('id_professor', ['options' => $professores]);
-            echo $this->Form->input('semestre');
+            echo $this->Form->input('semestre', ['options' => $semestres]);
             echo $this->Form->input('ano');
             echo $this->Form->input('aluno._ids', ['options' => $alunos]);
         ?>

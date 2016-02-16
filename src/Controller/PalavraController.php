@@ -22,7 +22,6 @@ class PalavraController extends AppController
         $lista =  $this->Palavra->find('all')->contain(['Aluno', 'Idioma']);
 
         $this->set('palavra', $this->paginate($lista));
-
         $this->set('_serialize', ['palavra']);
     }
 

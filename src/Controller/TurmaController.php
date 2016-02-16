@@ -18,6 +18,11 @@ class TurmaController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+              'contain' => ['Disciplina', 'Professor']
+            , 'sortWhitelist'=>['Disciplina.sigla', 'Professor.nome']
+        ];
+
         $this->set('turma', $this->paginate($this->Turma));
         $this->set('_serialize', ['turma']);
     }
@@ -64,7 +69,13 @@ class TurmaController extends AppController
         $this->set('professores', $professores);        
 
         $alunos  = TableRegistry::get('Aluno')->find('list', ['keyField' => 'id_aluno', 'valueField' => 'nome']);
-        $this->set('alunos', $alunos);                
+        $this->set('alunos', $alunos);     
+
+        $semestres = array(1=> 1, 2 => 2);
+        $anos      = array_combine(range(date('Y'), date('Y') + 5), range(date('Y'), date('Y') + 5));
+
+        $this->set('semestres', $semestres);
+        $this->set('anos', $anos);
 
         $this->set(compact('turma', 'aluno'));
         $this->set('_serialize', ['turma']);
@@ -80,8 +91,9 @@ class TurmaController extends AppController
     public function edit($id = null)
     {
         $turma = $this->Turma->get($id, [
-            'contain' => ['Aluno']
+            'contain' => ['Aluno', 'Professor', 'Disciplina']
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $turma = $this->Turma->patchEntity($turma, $this->request->data);
             if ($this->Turma->save($turma)) {
@@ -91,8 +103,21 @@ class TurmaController extends AppController
                 $this->Flash->error(__('The turma could not be saved. Please, try again.'));
             }
         }
-        $aluno = $this->Turma->Aluno->find('list', ['limit' => 200]);
-        $this->set(compact('turma', 'aluno'));
+        $disciplina = $this->Turma->Disciplina->find('list', [ 'keyField' => 'id_disciplina'
+                                                              , 'valueField' => 'sigla'
+
+            ]);
+
+        $aluno = $this->Turma->Aluno->find('list', [ 'keyField' => 'id_aluno'
+                                                   , 'valueField' => 'nome'
+
+            ]);
+        $professor = $this->Turma->Professor->find('list', [ 'keyField' => 'id_professor'
+                                                           , 'valueField' => 'nome'
+
+            ]);
+
+        $this->set(compact('turma', 'aluno', 'professor', 'disciplina'));
         $this->set('_serialize', ['turma']);
     }
 

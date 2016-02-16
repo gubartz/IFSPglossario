@@ -35,7 +35,7 @@ class AlunoTable extends Table
             'foreignKey' => 'id_aluno'
         ]);
 
-        $this->hasMany('Palavra');        
+        $this->hasMany('Palavra');
     }
 
     /**

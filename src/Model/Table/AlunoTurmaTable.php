@@ -28,7 +28,13 @@ class AlunoTurmaTable extends Table
         $this->displayField('id_aluno');
         $this->primaryKey(['id_aluno', 'id_turma']);
 
+        $this->belongsTo('Aluno', [
+            'foreignKey' => 'id_aluno'
+        ]);
 
+        $this->belongsTo('Turma', [
+            'foreignKey' => 'id_turma'
+        ]);        
 
     }
 

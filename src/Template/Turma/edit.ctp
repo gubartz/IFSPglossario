@@ -17,8 +17,8 @@
     <fieldset>
         <legend><?= __('Edit Turma') ?></legend>
         <?php
-            echo $this->Form->input('id_disciplina');
-            echo $this->Form->input('id_professor');
+            echo $this->Form->input('id_disciplina', ['options' => $disciplina]);
+            echo $this->Form->input('id_professor', ['options' => $professor]);
             echo $this->Form->input('semestre');
             echo $this->Form->input('ano');
             echo $this->Form->input('aluno._ids', ['options' => $aluno]);

@@ -11,8 +11,8 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id_turma') ?></th>
-            <th><?= $this->Paginator->sort('id_disciplina') ?></th>
-            <th><?= $this->Paginator->sort('id_professor') ?></th>
+            <th><?= $this->Paginator->sort('Disciplina.sigla', 'Sigla') ?></th>
+            <th><?= $this->Paginator->sort('Professor.nome', 'Professor') ?></th>
             <th><?= $this->Paginator->sort('semestre') ?></th>
             <th><?= $this->Paginator->sort('ano') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
@@ -22,8 +22,8 @@
     <?php foreach ($turma as $turma): ?>
         <tr>
             <td><?= $this->Number->format($turma->id_turma) ?></td>
-            <td><?= $this->Number->format($turma->id_disciplina) ?></td>
-            <td><?= $this->Number->format($turma->id_professor) ?></td>
+            <td><?= $turma->disciplina->sigla ?></td>
+            <td><?= $turma->professor->nome ?></td>
             <td><?= h($turma->semestre) ?></td>
             <td><?= h($turma->ano) ?></td>
             <td class="actions">

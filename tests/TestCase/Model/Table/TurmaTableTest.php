@@ -12,6 +12,13 @@ class TurmaTableTest extends TestCase
 {
 
     /**
+     * Test subject
+     *
+     * @var \App\Model\Table\TurmaTable
+     */
+    public $Turma;
+
+    /**
      * Fixtures
      *
      * @var array
@@ -19,7 +26,14 @@ class TurmaTableTest extends TestCase
     public $fixtures = [
         'app.turma',
         'app.aluno',
-        'app.aluno_turma'
+        'app.aluno_turma',
+        'app.palavra',
+        'app.idioma',
+        'app.glossario',
+        'app.palavra1',
+        'app.palavra2',
+        'app.disciplina',
+        'app.professor'
     ];
 
     /**
@@ -30,7 +44,9 @@ class TurmaTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Turma') ? [] : ['className' => 'App\Model\Table\TurmaTable'];        $this->Turma = TableRegistry::get('Turma', $config);    }
+        $config = TableRegistry::exists('Turma') ? [] : ['className' => 'App\Model\Table\TurmaTable'];
+        $this->Turma = TableRegistry::get('Turma', $config);
+    }
 
     /**
      * tearDown method

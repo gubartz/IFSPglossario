@@ -10,7 +10,8 @@ use Cake\Validation\Validator;
 /**
  * Turma Model
  *
- * @property \Cake\ORM\Association\BelongsToMany $Aluno */
+ * @property \Cake\ORM\Association\BelongsToMany $Aluno
+ */
 class TurmaTable extends Table
 {
 
@@ -29,12 +30,14 @@ class TurmaTable extends Table
         $this->primaryKey('id_turma');
 
         $this->belongsToMany('Aluno', [
-            'className' => 'Aluno',
-            'targetForeignKey' => 'id_turma',
-            'joinTable' => 'aluno_turma',
-            'foreignKey' => 'id_turma'
+            'foreignKey' => 'id_turma',
+            'targetForeignKey' => 'id_aluno',
+            'joinTable' => 'aluno_turma'
         ]);
 
+        $this->belongsTo('Disciplina', ['foreignKey' => 'id_disciplina']);
+
+        $this->belongsTo('Professor', ['foreignKey' => 'id_professor']);        
     }
 
     /**
@@ -46,15 +49,25 @@ class TurmaTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id_turma', 'valid', ['rule' => 'numeric'])            ->allowEmpty('id_turma', 'create');
+            ->integer('id_turma')
+            ->allowEmpty('id_turma', 'create');
+
         $validator
-            ->add('id_disciplina', 'valid', ['rule' => 'numeric'])            ->requirePresence('id_disciplina', 'create')            ->notEmpty('id_disciplina');
+            ->integer('id_disciplina')
+            ->requirePresence('id_disciplina', 'create')
+            ->notEmpty('id_disciplina');
+
         $validator
-            ->add('id_professor', 'valid', ['rule' => 'numeric'])            ->requirePresence('id_professor', 'create')            ->notEmpty('id_professor');
+            ->integer('id_professor')
+            ->requirePresence('id_professor', 'create')
+            ->notEmpty('id_professor');
+
         $validator
             ->allowEmpty('semestre');
+
         $validator
             ->allowEmpty('ano');
+
         return $validator;
     }
 }
