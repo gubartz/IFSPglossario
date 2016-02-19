@@ -32,20 +32,9 @@ class PalavraTable extends Table
 
         $this->belongsTo('Idioma', ['foreignKey' => 'id_idioma']);
 
-        $this->belongsToMany('Glossario', [
-            'foreignKey' => 'id_palavra1',
-            'targetForeignKey' => 'id_palavra',
-            'joinTable' => 'glossario',
-            'through' => 'Glossario'
-        ]);
-
-        $this->belongsToMany('Glossario', [
-            'foreignKey' => 'id_palavra2',
-            'targetForeignKey' => 'id_palavra',
-            'joinTable' => 'glossario',
-            'through' => 'Glossario'
-        ]);                               
-    }
+        //fix para pegar o Idioma no Join com Glossario e Palavra
+        $this->belongsTo('Idioma2', ['foreignKey' => 'id_idioma', 'className' => 'Idioma']);
+     }
 
     /**
      * Default validation rules.

@@ -30,10 +30,13 @@ class IdiomaTable extends Table
 
         $this->hasMany('Palavra', [
             'foreignKey' => 'id_idioma',
-            'targetForeignKey' => 'id_idioma'
-        ]);        
+            'targetForeignKey' => 'id_idioma',
+            'className' => 'Palavra'
+        ]);
 
-    }
+        $this->belongsToMany('Palavra', ['foreignKey' => 'id_idioma']);
+
+     }
 
     /**
      * Default validation rules.

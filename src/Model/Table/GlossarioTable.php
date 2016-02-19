@@ -28,16 +28,17 @@ class GlossarioTable extends Table
         $this->displayField('id_palavra1');
         $this->primaryKey(['id_palavra1', 'id_palavra2']);
 
-
         $this->belongsTo('Palavra1', [
                         'foreignKey' => 'id_palavra1',
-                        'className' => 'Palavra' 
+                        'bindingKey' => 'id_palavra',
+                        'className' => 'Palavra'
         ]);
 
         $this->belongsTo('Palavra2', [
                         'foreignKey' => 'id_palavra2',
-                        'className' => 'Palavra' 
-        ]);        
+                        'bindingKey' => 'id_palavra',
+                        'className' => 'Palavra'
+        ]);
     }
 
     /**

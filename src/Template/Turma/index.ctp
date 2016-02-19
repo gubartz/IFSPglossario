@@ -11,7 +11,7 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id_turma') ?></th>
-            <th><?= $this->Paginator->sort('Disciplina.sigla', 'Sigla') ?></th>
+            <th><?= $this->Paginator->sort('Disciplina.sigla', __('Sigla')) ?></th>
             <th><?= $this->Paginator->sort('Professor.nome', 'Professor') ?></th>
             <th><?= $this->Paginator->sort('semestre') ?></th>
             <th><?= $this->Paginator->sort('ano') ?></th>

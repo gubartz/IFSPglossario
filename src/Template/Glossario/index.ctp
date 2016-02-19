@@ -9,10 +9,15 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th><?= __('Idioma Palavra1') ?></th>
-                <th><?= $this->Paginator->sort('id_palavra1') ?></th>
-                <th><?= __('Idioma Palavra2') ?></th>
-                <th><?= $this->Paginator->sort('id_palavra2') ?></th>
+                <th colspan="2"><?= __('Palavra 1')?></th>
+                <th colspan="2"><?= __('Palavra 2')?></th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr>
+                <th><?= $this->Paginator->sort('Idioma.descricao', __('Idioma')) ?></th>
+                <th><?= $this->Paginator->sort('Palavra1.texto', __('Texto')) ?></th>
+                <th><?= $this->Paginator->sort('Idioma2.descricao', __('Idioma')) ?></th>
+                <th><?= $this->Paginator->sort('Palavra2.texto', __('Texto')) ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -21,7 +26,7 @@
             <tr>
                 <td><?= $glossario->palavra1->idioma->descricao ?></td>
                 <td><?= $glossario->palavra1->texto ?></td>
-                <td><?= $glossario->palavra2->idioma->descricao ?></td>
+                <td><?= $glossario->palavra2->idioma2->descricao ?></td>
                 <td><?= $glossario->palavra2->texto ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $glossario->id_palavra1]) ?>

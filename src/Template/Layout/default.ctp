@@ -1,17 +1,5 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+  $role = $this->request->session()->read('Auth.User.role');
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,6 +27,7 @@
             echo $this->Flash->render('auth');    
         ?>
     </header>
+    <?php $this->start('professorMenu');?>
     <nav class="top-bar foundation-bar show-for-medium-up" data-topbar>
         <ul class="title-area">
             <li class="name">
@@ -103,6 +92,46 @@
             </ul>
         </section>
     </nav>
+    <?php $this->end();?>
+
+    <?php $this->start('alunoMenu');?>
+    <nav class="top-bar foundation-bar show-for-medium-up" data-topbar>
+        <ul class="title-area">
+            <li class="name">
+                <h1 class="show-for-medium-up"><a href="#">Glossário</a></h1>
+            </li>
+        </ul>
+        <section class="top-bar-section">
+            <!-- Right Nav Section -->
+            <ul class="left">
+                <li class="has-dropdown">
+                    <a href="#">Palavra</a>
+                    <ul class="dropdown">
+                        <li><?= $this->Html->link(__('List Palavra'), ['controller' => 'Palavra', 'action' => 'index']) ?></li>
+                        <li><?= $this->Html->link(__('Add Palavra'), ['controller' => 'Palavra', 'action' => 'add']) ?></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Glossário</a>
+                    <ul class="dropdown">
+                        <li><?= $this->Html->link(__('List Glossario'), ['controller' => 'Glossario', 'action' => 'index']) ?></li>
+                        <li><?= $this->Html->link(__('Add Glossario'), ['controller' => 'Glossario', 'action' => 'add']) ?></li>
+                    </ul>
+                </li>                            
+                <li>
+                    <?= $this->Html->link(__('Logout'), ['controller' => 'Usuario', 'action' => 'logout']) ?>
+                </li>                
+            </ul>
+        </section>
+    </nav>
+    <?php $this->end();?>    
+
+    <?php 
+        if($role == 'professor')
+            echo $this->fetch('professorMenu');
+        else
+            echo $this->fetch('alunoMenu');
+    ?>
 
     <div class="row">
         <div class="small-12 columns">
@@ -112,16 +141,30 @@
                         <section class="left-small">
                             <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
                         </section>
-
                         <section class="middle tab-bar-section">
                             <h1 class="title">Glossário</h1>
                         </section>
-
                     </nav>
-
+                    <?php $this->start('professorOffCanvasMenu');?>
                     <aside class="left-off-canvas-menu">
                         <ul class="off-canvas-list">
                             <li><label>Menu</label></li>
+                            <li class="has-submenu"><a href="#">Palavra</a>
+                                <ul class="left-submenu">
+                                    <li class="back"><a href="#">Voltar</a></li>
+                                    <li><label>Palavra</label></li>
+                                    <li><?= $this->Html->link(__('List Palavra'), ['controller' => 'Palavra', 'action' => 'index']) ?></li>
+                                    <li><?= $this->Html->link(__('Add Palavra'), ['controller' => 'Palavra', 'action' => 'add']) ?></li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu"><a href="#">Glossário</a>
+                                <ul class="left-submenu">
+                                    <li class="back"><a href="#">Voltar</a></li>
+                                    <li><label>Palavra</label></li>
+                                    <li><?= $this->Html->link(__('List Glossario'), ['controller' => 'Glossario', 'action' => 'index']) ?></li>
+                                    <li><?= $this->Html->link(__('Add Glossario'), ['controller' => 'Glossario', 'action' => 'add']) ?></li>
+                                </ul>
+                            </li>                             
                             <li class="has-submenu"><a href="#">Aluno</a>
                                 <ul class="left-submenu">
                                     <li class="back"><a href="#">Voltar</a></li>
@@ -164,6 +207,38 @@
                             </li>                            
                         </ul>
                     </aside>
+                    <?php $this->end();?>
+
+                    <?php $this->start('alunoOffCanvasMenu');?>
+                    <aside class="left-off-canvas-menu">
+                        <ul class="off-canvas-list">
+                            <li><label>Menu</label></li>
+                            <li class="has-submenu"><a href="#">Palavra</a>
+                                <ul class="left-submenu">
+                                    <li class="back"><a href="#">Voltar</a></li>
+                                    <li><label>Palavra</label></li>
+                                    <li><?= $this->Html->link(__('List Palavra'), ['controller' => 'Palavra', 'action' => 'index']) ?></li>
+                                    <li><?= $this->Html->link(__('Add Palavra'), ['controller' => 'Palavra', 'action' => 'add']) ?></li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu"><a href="#">Glossário</a>
+                                <ul class="left-submenu">
+                                    <li class="back"><a href="#">Voltar</a></li>
+                                    <li><label>Palavra</label></li>
+                                    <li><?= $this->Html->link(__('List Glossario'), ['controller' => 'Glossario', 'action' => 'index']) ?></li>
+                                    <li><?= $this->Html->link(__('Add Glossario'), ['controller' => 'Glossario', 'action' => 'add']) ?></li>
+                                </ul>
+                            </li>                            
+                         </ul>
+                    </aside>
+                    <?php $this->end();?>                    
+
+                    <?php 
+                        if($role == 'professor')
+                            echo $this->fetch('professorOffCanvasMenu');
+                        else
+                            echo $this->fetch('alunoOffCanvasMenu');
+                    ?>             
 
                     <section class="main-section">
                         <?= $this->Flash->render() ?>
@@ -181,7 +256,7 @@
     <footer>
     </footer>
     <script>
-    	$(document).foundation();
+        $(document).foundation();
     </script>
 </body>
 </html>

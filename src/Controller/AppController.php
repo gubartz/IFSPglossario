@@ -64,7 +64,7 @@ class AppController extends Controller
         
         $this->Auth->allow(['display']);        
     }
-
+    
     public function isAuthorized($user = null)
     {
         if (isset($user['role']) && $user['role'] === 'professor') {

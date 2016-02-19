@@ -134,6 +134,8 @@ class PalavraController extends AppController
 
     public function isAuthorized($user = null)
     {
-        return true;
+        if(isset($user['role'])){
+            return true;
+        }
     }      
 }

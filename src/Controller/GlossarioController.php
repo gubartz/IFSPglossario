@@ -18,12 +18,12 @@ class GlossarioController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+              'contain' => ['Palavra1.Idioma', 'Palavra2' => ['Idioma2']]
+            , 'sortWhitelist'=>['Idioma.descricao', 'Idioma2.descricao', 'Palavra1.texto', 'Palavra2.texto']
+        ];
 
-        $glossario =  $this->Glossario->find('all')->contain(['Palavra1' => ['Idioma'], 'Palavra2' => ['Idioma']]);
-
-        $this->set('glossario', $this->paginate($glossario));
-
-        //$this->set('glossario', $this->paginate($this->Glossario));
+        $this->set('glossario', $this->paginate($this->Glossario));
         $this->set('_serialize', ['glossario']);
     }
 
@@ -107,4 +107,11 @@ class GlossarioController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function isAuthorized($user = null)
+    {
+        if(isset($user['role'])){
+            return true;
+        }
+    }       
 }
