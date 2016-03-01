@@ -28,7 +28,10 @@ class PalavraTable extends Table
         $this->displayField('id_palavra');
         $this->primaryKey('id_palavra');
 
-        $this->belongsTo('Aluno', ['foreignKey' => 'id_aluno']);
+        $this->belongsTo('AlunoTurma', ['foreignKey' => ['id_aluno', 'id_turma'],
+            'className' => 'AlunoTurma',
+            'bindingKey' => ['id_aluno', 'id_turma']
+        ]);
 
         $this->belongsTo('Idioma', ['foreignKey' => 'id_idioma']);
 

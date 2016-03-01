@@ -8,10 +8,11 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('texto') ?></th>
-            <th><?= $this->Paginator->sort('idioma') ?></th>
-            <th><?= $this->Paginator->sort('Aluno') ?></th>
-            <th><?= $this->Paginator->sort('id_turma') ?></th>
+            <th><?= $this->Paginator->sort('texto', __('Palavra')) ?></th>
+            <th><?= $this->Paginator->sort('Idioma.descricao', __('Idioma')) ?></th>
+            <th><?= $this->Paginator->sort('Aluno.nome', __('Nome')) ?></th>
+            <th><?= $this->Paginator->sort('Disciplina.sigla', __('Disciplina')) ?></th>
+            <th><?= $this->Paginator->sort('Turma.semestre', __('Turma')) ?></th>
             <th><?= $this->Paginator->sort('data_cadastro') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
@@ -21,8 +22,9 @@
         <tr>
             <td><?= h($palavra->texto) ?></td>
             <td><?= $palavra->idioma->descricao ?></td>
-            <td><?= $palavra->aluno->nome ?></td>
-            <td><?= $this->Number->format($palavra->id_turma) ?></td>
+            <td><?= $palavra->aluno_turma->aluno->nome ?></td>
+            <td><?= $palavra->aluno_turma->turma->disciplina->sigla ?></td>
+            <td><?= $palavra->aluno_turma->turma->semestre ?></td>
             <td><?= h($palavra->data_cadastro) ?></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $palavra->id_palavra]) ?>

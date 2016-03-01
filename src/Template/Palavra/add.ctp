@@ -10,7 +10,7 @@
         <legend><?= __('Add Palavra') ?></legend>
         <?php
             echo $this->Form->input('texto');
-            echo $this->Form->input('id_idioma');
+            echo $this->Form->input('id_idioma', ['options' => $id_idioma]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -74,6 +74,5 @@ class AppController extends Controller
         $this->redirect(array('controller' => 'Usuario', 'action' => 'login'));
         
         return false;
-    }    
-
+    }
 }

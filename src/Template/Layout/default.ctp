@@ -1,5 +1,13 @@
 <?php
-  $role = $this->request->session()->read('Auth.User.role');
+  $user = $this->request->session()->read('Auth.User.usuario');
+  $role = '';
+
+  if($user instanceof \App\Model\Entity\Aluno){
+    $role   = 'aluno';
+    $turmas = $user->turma;
+  }else if($user instanceof \App\Model\Entity\Professor){
+    $role = 'professor';
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,6 +45,18 @@
         <section class="top-bar-section">
             <!-- Right Nav Section -->
             <ul class="left">
+                <li class="has-form">
+                    <div class="row collapse">
+                        <div class="large-8 small-9 columns">
+                            <select style="width: 5em">
+                                <?php foreach($turmas as $turma): ?>
+                                    <option value=""><?php echo $turma->semestre ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="divider"></li>
                 <li class="has-dropdown">
                     <a href="#">Palavra</a>
                     <ul class="dropdown">
@@ -104,6 +124,17 @@
         <section class="top-bar-section">
             <!-- Right Nav Section -->
             <ul class="left">
+                <li class="has-form">
+                    <div class="row collapse">
+                        <div class="large-8 small-9 columns">
+                            <select style="width: 5em">
+                                <?php foreach($turmas as $turma): ?>
+                                    <option value=""><?php echo $turma->semestre ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                </li>            
                 <li class="has-dropdown">
                     <a href="#">Palavra</a>
                     <ul class="dropdown">

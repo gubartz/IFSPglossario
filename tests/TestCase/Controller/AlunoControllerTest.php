@@ -18,7 +18,13 @@ class AlunoControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.aluno',
         'app.turma',
-        'app.aluno_turma'
+        'app.aluno_turma',
+        'app.disciplina',
+        'app.professor',
+        'app.palavra',
+        'app.idioma',
+        'app.idioma_palavra',
+        'app.idioma2'
     ];
 
     /**

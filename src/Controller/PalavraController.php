@@ -18,10 +18,13 @@ class PalavraController extends AppController
      */
     public function index()
     {
-        
-        $lista =  $this->Palavra->find('all')->contain(['Aluno', 'Idioma']);
 
-        $this->set('palavra', $this->paginate($lista));
+        $this->paginate = [
+              'contain' => ['AlunoTurma' => ['Turma.Disciplina', 'Aluno'], 'Idioma']
+            , 'sortWhitelist'=>['Aluno.nome', 'Idioma.descricao', 'Disciplina.sigla', 'Turma.semestre']
+        ];        
+        
+        $this->set('palavra', $this->paginate($this->Palavra));
         $this->set('_serialize', ['palavra']);
     }
 
@@ -55,6 +58,8 @@ class PalavraController extends AppController
             $user = $this->Auth->user();
             
             $palavra->id_aluno = $user['id_aluno'];
+
+            //precisar arrumar para pegar a turma do aluno
             $palavra->id_turma = 1;
 
             if ($this->Palavra->save($palavra)) {
@@ -64,6 +69,10 @@ class PalavraController extends AppController
                 $this->Flash->error(__('The palavra could not be saved. Please, try again.'));
             }
         }
+
+        $list  = TableRegistry::get('Idioma')->find('list');
+        $this->set('id_idioma', $list);        
+
         $this->set(compact('palavra'));
         $this->set('_serialize', ['palavra']);
     }

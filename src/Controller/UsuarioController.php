@@ -115,7 +115,7 @@ class UsuarioController extends AppController
                 $alunoQuery = TableRegistry::get('Aluno');                  
 
                 $alunoArray = 
-                    $alunoQuery->find()->contain(['Turma'])->where(['id_usuario' => $user['id_usuario']])->toArray();
+                    $alunoQuery->find()->contain(['Turma.Disciplina'])->where(['id_usuario' => $user['id_usuario']])->toArray();
 
                 if(empty($alunoArray)){
                     $professorQuery = TableRegistry::get('Professor');                  
@@ -126,18 +126,18 @@ class UsuarioController extends AppController
 
                     if(!empty($professorArray)){
                         $role = 'professor';
+                        $user['usuario'] = $professorArray[0];
                     }
                 }else{
-                    $role             = 'aluno';
-                    $user['id_aluno'] = $alunoArray[0]['id_aluno'];
-                    $user['turmas']   = 0;
+                    $role            = 'aluno';
+                    $user['usuario'] = $alunoArray[0];
                 }
 
                 if(empty($professorArray)){
                     //erro
                 }
 
-                $user['role'] = $role;
+                $user['role']    = $role;
 
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());

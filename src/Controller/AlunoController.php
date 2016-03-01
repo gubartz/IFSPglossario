@@ -2,23 +2,25 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
 
 /**
  * Aluno Controller
  *
- * @property \App\Model\Table\AlunoTable $Aluno */
+ * @property \App\Model\Table\AlunoTable $Aluno
+ */
 class AlunoController extends AppController
 {
 
     /**
      * Index method
      *
-     * @return void
+     * @return \Cake\Network\Response|null
      */
     public function index()
     {
-        $this->set('aluno', $this->paginate($this->Aluno));
+        $aluno = $this->paginate($this->Aluno);
+
+        $this->set(compact('aluno'));
         $this->set('_serialize', ['aluno']);
     }
 
@@ -26,14 +28,15 @@ class AlunoController extends AppController
      * View method
      *
      * @param string|null $id Aluno id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return \Cake\Network\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
         $aluno = $this->Aluno->get($id, [
-            'contain' => ['Turma']
+            'contain' => ['Turma', 'Palavra']
         ]);
+
         $this->set('aluno', $aluno);
         $this->set('_serialize', ['aluno']);
     }
@@ -41,7 +44,7 @@ class AlunoController extends AppController
     /**
      * Add method
      *
-     * @return void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -55,20 +58,16 @@ class AlunoController extends AppController
                 $this->Flash->error(__('The aluno could not be saved. Please, try again.'));
             }
         }
-        
         $turma = $this->Aluno->Turma->find('list', ['limit' => 200]);
         $this->set(compact('aluno', 'turma'));
-        $this->set('_serialize', ['aluno']); 
-
-        $list  = TableRegistry::get('Usuario')->find('list');
-        $this->set('id_usuario', $list);
+        $this->set('_serialize', ['aluno']);
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Aluno id.
-     * @return void Redirects on successful edit, renders view otherwise.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
@@ -85,20 +84,21 @@ class AlunoController extends AppController
                 $this->Flash->error(__('The aluno could not be saved. Please, try again.'));
             }
         }
-        $turma = $this->Aluno->Turma->find('list', ['limit' => 200]);
+
+        $turma = $this->Aluno->Turma->find('list', [ 'keyField' => 'id_turma'
+                                                   , 'valueField' => 'id_turma']);
+
+
         $this->set(compact('aluno', 'turma'));
         $this->set('_serialize', ['aluno']);
-        
-        $list  = TableRegistry::get('Usuario')->find('list');
-        $this->set('id_usuario', $list);
     }
 
     /**
      * Delete method
      *
      * @param string|null $id Aluno id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {

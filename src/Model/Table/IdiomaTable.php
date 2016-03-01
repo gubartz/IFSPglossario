@@ -25,7 +25,7 @@ class IdiomaTable extends Table
         parent::initialize($config);
 
         $this->table('idioma');
-        $this->displayField('id_idioma');
+        $this->displayField('descricao');
         $this->primaryKey('id_idioma');
 
         $this->hasMany('Palavra', [

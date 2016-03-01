@@ -1,61 +1,98 @@
-<div class="actions columns large-2 medium-3">
-    <h3><?= __('Actions') ?></h3>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Aluno'), ['action' => 'edit', $aluno->id_aluno]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Aluno'), ['action' => 'delete', $aluno->id_aluno], ['confirm' => __('Are you sure you want to delete # {0}?', $aluno->id_aluno)]) ?> </li>
         <li><?= $this->Html->link(__('List Aluno'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Aluno'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Palavra'), ['controller' => 'Palavra', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Palavra'), ['controller' => 'Palavra', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Turma'), ['controller' => 'Turma', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Turma'), ['controller' => 'Turma', 'action' => 'add']) ?> </li>
     </ul>
-</div>
-<div class="aluno view large-10 medium-9 columns">
-    <h2><?= h($aluno->id_aluno) ?></h2>
-    <div class="row">
-        <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('Prontuario') ?></h6>
-            <p><?= h($aluno->prontuario) ?></p>
-            <h6 class="subheader"><?= __('Nome') ?></h6>
-            <p><?= h($aluno->nome) ?></p>
-        </div>
-        <div class="large-2 columns numbers end">
-            <h6 class="subheader"><?= __('Id Aluno') ?></h6>
-            <p><?= $this->Number->format($aluno->id_aluno) ?></p>
-            <h6 class="subheader"><?= __('E-mail') ?></h6>
-            <p><?= h($aluno->email) ?></p>            
-        </div>
-    </div>
-</div>
-<div class="related row">
-    <div class="column large-12">
-    <h4 class="subheader"><?= __('Related Turma') ?></h4>
-    <?php if (!empty($aluno->turma)): ?>
-    <table cellpadding="0" cellspacing="0">
+</nav>
+<div class="aluno view large-9 medium-8 columns content">
+    <h3><?= h($aluno->id_aluno) ?></h3>
+    <table class="vertical-table">
         <tr>
-            <th><?= __('Id Turma') ?></th>
-            <th><?= __('Id Disciplina') ?></th>
-            <th><?= __('Id Professor') ?></th>
-            <th><?= __('Semestre') ?></th>
-            <th><?= __('Ano') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
+            <th><?= __('Prontuario') ?></th>
+            <td><?= h($aluno->prontuario) ?></td>
         </tr>
-        <?php foreach ($aluno->turma as $turma): ?>
         <tr>
-            <td><?= h($turma->id_turma) ?></td>
-            <td><?= h($turma->id_disciplina) ?></td>
-            <td><?= h($turma->id_professor) ?></td>
-            <td><?= h($turma->semestre) ?></td>
-            <td><?= h($turma->ano) ?></td>
-
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['controller' => 'Turma', 'action' => 'view', $turma->id_turma]) ?>
-                <?= $this->Html->link(__('Edit'), ['controller' => 'Turma', 'action' => 'edit', $turma->id_turma]) ?>
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Turma', 'action' => 'delete', $turma->id_turma], ['confirm' => __('Are you sure you want to delete # {0}?', $turma->id_turma)]) ?>
-            </td>
+            <th><?= __('Nome') ?></th>
+            <td><?= h($aluno->nome) ?></td>
         </tr>
-
-        <?php endforeach; ?>
+        <tr>
+            <th><?= __('Email') ?></th>
+            <td><?= h($aluno->email) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Id Aluno') ?></th>
+            <td><?= $this->Number->format($aluno->id_aluno) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Id Usuario') ?></th>
+            <td><?= $this->Number->format($aluno->id_usuario) ?></td>
+        </tr>
     </table>
-    <?php endif; ?>
+    <div class="related">
+        <h4><?= __('Related Palavra') ?></h4>
+        <?php if (!empty($aluno->palavra)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id Palavra') ?></th>
+                <th><?= __('Texto') ?></th>
+                <th><?= __('Id Idioma') ?></th>
+                <th><?= __('Id Aluno') ?></th>
+                <th><?= __('Id Turma') ?></th>
+                <th><?= __('Data Cadastro') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($aluno->palavra as $palavra): ?>
+            <tr>
+                <td><?= h($palavra->id_palavra) ?></td>
+                <td><?= h($palavra->texto) ?></td>
+                <td><?= h($palavra->id_idioma) ?></td>
+                <td><?= h($palavra->id_aluno) ?></td>
+                <td><?= h($palavra->id_turma) ?></td>
+                <td><?= h($palavra->data_cadastro) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Palavra', 'action' => 'view', $palavra->id_palavra]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Palavra', 'action' => 'edit', $palavra->id_palavra]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Palavra', 'action' => 'delete', $palavra->id_palavra], ['confirm' => __('Are you sure you want to delete # {0}?', $palavra->id_palavra)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Turma') ?></h4>
+        <?php if (!empty($aluno->turma)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id Turma') ?></th>
+                <th><?= __('Id Disciplina') ?></th>
+                <th><?= __('Id Professor') ?></th>
+                <th><?= __('Semestre') ?></th>
+                <th><?= __('Ano') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($aluno->turma as $turma): ?>
+            <tr>
+                <td><?= h($turma->id_turma) ?></td>
+                <td><?= h($turma->id_disciplina) ?></td>
+                <td><?= h($turma->id_professor) ?></td>
+                <td><?= h($turma->semestre) ?></td>
+                <td><?= h($turma->ano) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Turma', 'action' => 'view', $turma->id_turma]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Turma', 'action' => 'edit', $turma->id_turma]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Turma', 'action' => 'delete', $turma->id_turma], ['confirm' => __('Are you sure you want to delete # {0}?', $turma->id_turma)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
     </div>
 </div>
