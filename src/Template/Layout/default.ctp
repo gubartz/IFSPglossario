@@ -27,6 +27,22 @@
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
+    <?php
+    $url =  $this->Url->build([
+        "controller" => "Usuario",
+        "action" => "trocarTurma"
+    ]);
+    ?>
+
+    <script>
+        $(function(){
+            $("#turma").change(function(){
+                var idTurma = $("#turma").val();
+                $.get("<?php echo $url?>", {idTurma: idTurma})
+            });            
+        })
+    </script>
 </head>
 <body>
     <header>
@@ -48,9 +64,9 @@
                 <li class="has-form">
                     <div class="row collapse">
                         <div class="large-8 small-9 columns">
-                            <select style="width: 5em">
+                            <select style="width: 5em" id="turma">
                                 <?php foreach($turmas as $turma): ?>
-                                    <option value=""><?php echo $turma->semestre ?></option>
+                                    <option value="<?php echo $turma->id_turma ?>"><?php echo $turma->semestre ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -127,9 +143,9 @@
                 <li class="has-form">
                     <div class="row collapse">
                         <div class="large-8 small-9 columns">
-                            <select style="width: 5em">
+                            <select style="width: 5em" id="turma">
                                 <?php foreach($turmas as $turma): ?>
-                                    <option value=""><?php echo $turma->semestre ?></option>
+                                    <option value="<?php echo $turma->id_turma ?>"><?php echo $turma->semestre ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>

@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Controller\Component\RequestHandlerComponent;
 
 /**
  * Application Controller
@@ -38,6 +39,7 @@ class AppController extends Controller
     {
         parent::initialize();
         $this->loadComponent('Flash');
+        $this->loadComponent('RequestHandler');
 
         $this->loadComponent('Auth', [
             'authorize' => ['Controller'],

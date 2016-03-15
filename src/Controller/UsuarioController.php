@@ -104,6 +104,27 @@ class UsuarioController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function trocarTurma($idTurma = null)
+    {
+        $customers['id'] = '123';
+        $this->set('customers', $customers);
+        $this->set('_serialize', ['customers']);
+     
+
+        $turmas = $this->request->session()->read('Auth.User.usuario.turma');
+        $this->autoRender = false;
+
+        $name = $this->request->session()->read('User.name');
+
+/*
+        $this->render('ajax_response', 'ajax');
+        
+       
+        if ($this->request->is('get')) {
+            
+        }*/
+    }
+
     public function login()
     {
 
@@ -150,7 +171,7 @@ class UsuarioController extends AppController
     {
         parent::beforeFilter($event);
         //$this->Auth->allow(['index', 'add', 'edit', 'login', 'logout']);
-        $this->Auth->allow(['login', 'logout']);
+        $this->Auth->allow(['login', 'logout', 'trocarTurma']);
     }
 
     public function logout()
