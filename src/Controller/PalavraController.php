@@ -55,12 +55,13 @@ class PalavraController extends AppController
         $palavra = $this->Palavra->newEntity();
         if ($this->request->is('post')) {
             $palavra = $this->Palavra->patchEntity($palavra, $this->request->data);
-            $user = $this->Auth->user();
-            
-            $palavra->id_aluno = $user['id_aluno'];
 
-            //precisar arrumar para pegar a turma do aluno
-            $palavra->id_turma = 1;
+            $session = $this->request->session();
+
+            $usuario = $session->read('Auth.User.usuario');
+            $palavra->id_aluno = $usuario->id_aluno;
+
+            $palavra->id_turma = $session->read('idTurmaSelected');
 
             if ($this->Palavra->save($palavra)) {
                 $this->Flash->success(__('The palavra has been saved.'));

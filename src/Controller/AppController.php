@@ -42,6 +42,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
 
         $this->loadComponent('Auth', [
+            'flash' => ['element' => 'error'],
             'authorize' => ['Controller'],
             'authenticate' => [
                 'Form' => [

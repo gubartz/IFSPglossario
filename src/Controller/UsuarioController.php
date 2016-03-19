@@ -106,28 +106,14 @@ class UsuarioController extends AppController
 
     public function trocarTurma($idTurma = null)
     {
-        $customers['id'] = '123';
-        $this->set('customers', $customers);
-        $this->set('_serialize', ['customers']);
-     
-
-        $turmas = $this->request->session()->read('Auth.User.usuario.turma');
+        $this->request->allowMethod(['post']);
         $this->autoRender = false;
-
-        $name = $this->request->session()->read('User.name');
-
-/*
-        $this->render('ajax_response', 'ajax');
-        
-       
-        if ($this->request->is('get')) {
-            
-        }*/
+        $session = $this->request->session();
+        $session->write('idTurmaSelected', $idTurma);
     }
 
     public function login()
     {
-
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -135,8 +121,7 @@ class UsuarioController extends AppController
 
                 $alunoQuery = TableRegistry::get('Aluno');                  
 
-                $alunoArray = 
-                    $alunoQuery->find()->contain(['Turma.Disciplina'])->where(['id_usuario' => $user['id_usuario']])->toArray();
+                $alunoArray = $alunoQuery->find()->contain(['Turma.Disciplina'])->where(['id_usuario' => $user['id_usuario']])->toArray();
 
                 if(empty($alunoArray)){
                     $professorQuery = TableRegistry::get('Professor');                  
@@ -154,11 +139,7 @@ class UsuarioController extends AppController
                     $user['usuario'] = $alunoArray[0];
                 }
 
-                if(empty($professorArray)){
-                    //erro
-                }
-
-                $user['role']    = $role;
+                $user['role'] = $role;
 
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());

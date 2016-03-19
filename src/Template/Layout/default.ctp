@@ -1,10 +1,21 @@
 <?php
-  $user = $this->request->session()->read('Auth.User.usuario');
+  $session = $this->request->session();
+
+  $user            = $session->read('Auth.User.usuario');
+  $idTurmaSelected = $session->read('idTurmaSelected');
+
   $role = '';
+  $options = array();
 
   if($user instanceof \App\Model\Entity\Aluno){
     $role   = 'aluno';
     $turmas = $user->turma;
+
+    foreach($turmas as $turma){
+        $options[$turma->id_turma] = $turma->semestre . ' - ' . $turma->disciplina->sigla;
+    }
+
+
   }else if($user instanceof \App\Model\Entity\Professor){
     $role = 'professor';
   }
@@ -29,27 +40,23 @@
     <?= $this->fetch('script') ?>
 
     <?php
-    $url =  $this->Url->build([
-        "controller" => "Usuario",
-        "action" => "trocarTurma"
-    ]);
+        $url = $this->Url->build([
+            "controller" => "Usuario",
+            "action" => "trocarTurma"
+        ]);
     ?>
 
     <script>
         $(function(){
             $("#turma").change(function(){
                 var idTurma = $("#turma").val();
-                $.get("<?php echo $url?>", {idTurma: idTurma})
+                $.post("<?php echo $url?>/" + idTurma);
             });            
         })
     </script>
 </head>
 <body>
     <header>
-        <?php
-            echo $this->Flash->render();
-            echo $this->Flash->render('auth');    
-        ?>
     </header>
     <?php $this->start('professorMenu');?>
     <nav class="top-bar foundation-bar show-for-medium-up" data-topbar>
@@ -61,17 +68,6 @@
         <section class="top-bar-section">
             <!-- Right Nav Section -->
             <ul class="left">
-                <li class="has-form">
-                    <div class="row collapse">
-                        <div class="large-8 small-9 columns">
-                            <select style="width: 5em" id="turma">
-                                <?php foreach($turmas as $turma): ?>
-                                    <option value="<?php echo $turma->id_turma ?>"><?php echo $turma->semestre ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                    </div>
-                </li>
                 <li class="divider"></li>
                 <li class="has-dropdown">
                     <a href="#">Palavra</a>
@@ -142,12 +138,10 @@
             <ul class="left">
                 <li class="has-form">
                     <div class="row collapse">
-                        <div class="large-8 small-9 columns">
-                            <select style="width: 5em" id="turma">
-                                <?php foreach($turmas as $turma): ?>
-                                    <option value="<?php echo $turma->id_turma ?>"><?php echo $turma->semestre ?></option>
-                                <?php endforeach ?>
-                            </select>
+                        <div class="large-12 small-9 columns">
+                            <?php
+                            echo $this->Form->select('turma', $options, ['default' => $idTurmaSelected, 'id' => 'turma']);
+                            ?>
                         </div>
                     </div>
                 </li>            
@@ -286,7 +280,6 @@
                         else
                             echo $this->fetch('alunoOffCanvasMenu');
                     ?>             
-
                     <section class="main-section">
                         <?= $this->Flash->render() ?>
                         <div class="row">
