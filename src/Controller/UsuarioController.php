@@ -137,6 +137,9 @@ class UsuarioController extends AppController
                 }else{
                     $role            = 'aluno';
                     $user['usuario'] = $alunoArray[0];
+
+                    $session = $this->request->session();
+                    $session->write('idTurmaSelected', $alunoArray[0]->turma[0]->id_turma);                    
                 }
 
                 $user['role'] = $role;
